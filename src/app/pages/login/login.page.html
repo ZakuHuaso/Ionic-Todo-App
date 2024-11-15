@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+  </ion-header>
+
+  <div style="z-index: 1000; position: fixed;"  >
+    <img src="assets/GooList-.png" alt="GooList">
+  </div>
+  
+  <div class="content-container">
+    <h1> Inicia sesión </h1>
+    <div class="input-container">
+      <ion-item>
+        <ion-input fill= "outline" placeholder="Correo" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input fill= "outline" placeholder="Contraseña" type="password" ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="button-container">
+      <ion-button expand="block" >Continuar</ion-button>
+      <hr>
+      <ion-button expand="block" color="tertiary">Iniciar sesion con Google</ion-button>
+      <p style="text-align: center;"> o </p>
+      <p class="texto">¿No tiene cuenta? <span class="texto color-registro">Crea una</span> </p> 
+    </div>
+    
+  </div>
+</ion-content>
