@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CancelAlertService } from 'src/app/service/custom-alert.service';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +8,37 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  email: string = 'user';
+  password: string = 'pass';
 
   
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private alert: CancelAlertService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+
+  /* === Boton Registro === */
+   onRegisterButtonPressed() {
+    this.router.navigate(['/register']);
   }
+
+  
+  /* === Boton Login === */
+   onLoginButton(){
+    if(this.email == 'user' && this.password=='pass'){
+      this.router.navigate(['/home']);
+    } else {
+      console.error("error");
+      this.alert.showAlert('Error', 'Error', null);
+    }
+
+   } 
+
+ 
+
 
 }

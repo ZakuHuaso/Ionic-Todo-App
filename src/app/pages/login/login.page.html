@@ -21,12 +21,12 @@
     </div>
 
     <div class="button-container">
-      <ion-button expand="block" >Continuar</ion-button>
+      <ion-button expand="block" (click)="onLoginButton()">Continuar</ion-button>
       <hr>
       <ion-button expand="block" color="tertiary">Iniciar sesion con Google</ion-button>
       <p style="text-align: center;"> o </p>
-      <p class="texto">¿No tiene cuenta? <span class="texto color-registro">Crea una</span> </p> 
+      <p class="texto">¿No tiene cuenta? <span class="texto color-registro" (click)="onRegisterButtonPressed()">Crea una</span> </p> 
     </div>
-    
+
   </div>
 </ion-content>
