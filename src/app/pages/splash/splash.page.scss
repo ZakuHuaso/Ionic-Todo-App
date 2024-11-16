@@ -1,0 +1,14 @@
+.splash-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .splash-image {
+    max-width: 90%; 
+    max-height: 90%; 
+    object-fit: contain;
+  }
+  
