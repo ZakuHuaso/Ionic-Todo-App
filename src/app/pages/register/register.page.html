@@ -1,13 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <app-header backButton="/login" title="Registro"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="input-style">
+    <ion-list>
+      <ion-input
+        type="text"
+        fill="outline"
+        label="Nombre de Usuario"
+        labelPlacement="floating"
+        helperText="Solo letras y números"
+      ></ion-input>
+      <br>
+      <ion-input
+        type="email"
+        fill="outline"
+        label="Email"
+        labelPlacement="floating"
+        helperText="Ej. 'goomy@fakemail.com'"
+      ></ion-input>
+      <br>
+      <ion-input
+        type="password"
+        fill="outline"
+        label="Contraseña"
+        labelPlacement="floating"
+        ></ion-input>
+      <br>
+      <ion-input
+        type="password"
+        fill="outline"
+        label="Repetir Contraseña"
+        labelPlacement="floating"
+        helperText="La contraseña debe tener mínimo una minúscula, mayúscula y un número."
+      ></ion-input>
+    </ion-list>
+  </div>
+  
+  <div>
+    <ion-button expand="block" size="large" >Continuar</ion-button>
+  </div>
 </ion-content>

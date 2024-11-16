@@ -1,0 +1,19 @@
+ion-content {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  ion-list {
+    padding: 32px; 
+    gap: 200px; 
+    height: 100%; 
+  }
+  
+  .input-style{
+    margin-top: 10%;
+  }
+  
+  ion-button{
+    padding:20px;
+  }
