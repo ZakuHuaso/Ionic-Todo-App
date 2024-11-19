@@ -1,42 +1,55 @@
-<ion-content>
-  <app-header backButton="/login" title="Registro"></app-header>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back" defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <div class="input-style">
-    <ion-list>
-      <ion-input
-        type="text"
-        fill="outline"
-        label="Nombre de Usuario"
-        labelPlacement="floating"
-        helperText="Solo letras y números"
-      ></ion-input>
-      <br>
-      <ion-input
-        type="email"
-        fill="outline"
-        label="Email"
-        labelPlacement="floating"
-        helperText="Ej. 'goomy@fakemail.com'"
-      ></ion-input>
-      <br>
-      <ion-input
-        type="password"
-        fill="outline"
-        label="Contraseña"
-        labelPlacement="floating"
+<ion-content [fullscreen]="true">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterButton()">
+    <div class="input-style">
+      <ion-list>
+        <ion-input
+          type="text"
+          fill="outline"
+          label="Nombre de Usuario"
+          labelPlacement="floating"
+          formControlName="username"
+          [errorText]="registerForm.controls['username'].errors?.['required'] ? 'Nombre requerido' : 'Nombre inválido'"
+          helperText="Solo letras y números"
         ></ion-input>
-      <br>
-      <ion-input
-        type="password"
-        fill="outline"
-        label="Repetir Contraseña"
-        labelPlacement="floating"
-        helperText="La contraseña debe tener mínimo una minúscula, mayúscula y un número."
-      ></ion-input>
-    </ion-list>
-  </div>
-  
-  <div>
-    <ion-button expand="block" size="large" >Continuar</ion-button>
-  </div>
+        <br />
+        <ion-input
+          type="email"
+          fill="outline"
+          label="Email"
+          labelPlacement="floating"
+          formControlName="email"
+          [errorText]="registerForm.controls['email'].errors?.['required'] ? 'Email requerido' : 'Email inválido'"
+          helperText="Ej. 'goomy@fakemail.com'"
+        ></ion-input>
+        <br />
+        <ion-input
+          type="password"
+          fill="outline"
+          label="Contraseña"
+          labelPlacement="floating"
+          formControlName="password"
+          [errorText]="registerForm.controls['password'].errors ? 'Contraseña inválida' : ''"
+        ></ion-input>
+      </ion-list>
+    </div>
+
+    <div>
+      <ion-button
+        expand="block"
+        size="large"
+        type="submit"
+        (ngSubmit)="onRegisterButton()"
+        >Continuar</ion-button
+      >
+    </div>
+  </form>
 </ion-content>
