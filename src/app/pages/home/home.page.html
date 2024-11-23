@@ -4,10 +4,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="loadNotes()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let note of notes">
+      <ion-label>
+        <h2>{{ note.task_name }}</h2>
+        <p>{{ note.task_desc }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="deleteNote(note.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="toNewTaskPage()"> Agregar Nota </ion-button>
+  <ion-button > Editar Nota </ion-button>
+
+  <ion-loading [isOpen]="isLoading" message="Loading notes..."></ion-loading>
 </ion-content>
