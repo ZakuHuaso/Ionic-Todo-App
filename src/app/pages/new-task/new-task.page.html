@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Notas
+    </ion-title>
+    <ion-buttons slot="end">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div>
+    <!-- Formulario -->
+    <form [formGroup]="form">
+      <ion-item class="mb-5">
+        <ion-label position="floating">Titulo</ion-label>
+        <ion-input formControlName="task_name"></ion-input>
+      </ion-item>
+
+      <ion-item class="mb-5">
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-input formControlName="task_desc"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="addNote()">
+      </ion-button>
+    </form>
+  </div>
+ 
+</ion-content>
+
