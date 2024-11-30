@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <hr>
+  <div class="container">
+    <div style="flex-basis: 10%;">
+      <ion-avatar><img alt="Silueta de persona"
+          src="https://ionicframework.com/docs/img/demos/avatar.svg" /></ion-avatar>
+      <div (click)="performLogout()">
+        <p style="color: red;font-size: 12px;"> Cerrar Sesion </p>
+      </div>
+    </div>
+
+    <div style="flex-basis: 70%;">
+      <ion-item> Usuario {{ username }} </ion-item> 
+      <ion-item> Email {{ email }}</ion-item>
+    </div>
+  </div>
+
+  <hr>
+
+  <div>
+    <ion-item class="alarma">
+      <ion-range label="Tareas diarias" aria-label="Custom range" [min]="1" [max]="5" [value]="3" [pin]="true"
+        [ticks]="true" [snaps]="true"></ion-range>
+    </ion-item>
+    <p class="info"> El máximo de tareas diarias que se muestran en pantalla es 5</p>
+  </div>
+
+  <div class="container">
+    <p style="color: #9DB2CE;"> Guardar cambios </p>
+  </div>
+
+  <ion-button expand="block" color="danger" >Eliminar Cuenta</ion-button>
+
+</ion-content>
