@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseService } from '../shared/supabase.service';
+import { StorageService } from './StorageService';
 
 export interface Profile {
   username: string
@@ -10,14 +11,20 @@ export interface Profile {
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private supabase = inject(SupabaseService).supabaseClient;
-
-  constructor() {
+  
+  constructor(
+    private storageService: StorageService
+  ) {
     this.supabase.auth.onAuthStateChange((session) => {
       console.log(session);
     });
   }
 
-  session(){
+  async session() {
+    const storedSession = await this.storageService.get('user_session');
+    if (storedSession) {
+      return { data: { session: storedSession }, error: null };
+    }
     return this.supabase.auth.getSession();
   }
 
@@ -42,6 +49,11 @@ export class AuthService {
   // === Cerrar Sesion ===
   signOut(){
     return this.supabase.auth.signOut();
+  }
+
+  // === Perfil de usuario ===
+  getProfile(){
+    return this.supabase.auth.getUser();
   }
 
 }

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  supabaseUrl: 'https://ghboqcvyyeqwpygqerbf.supabase.co',
-  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdoYm9xY3Z5eWVxd3B5Z3FlcmJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3Mzc4ODQsImV4cCI6MjA0ODMxMzg4NH0.vP4j2hSEcM5KHbWv-dLy_Walejqya07AAE_tzxrl9Ks'
+  supabaseUrl: 'https://vehewnungnzpeqmihlmr.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlaGV3bnVuZ256cGVxbWlobG1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5NzcxNTMsImV4cCI6MjA0ODU1MzE1M30.6cpoItEnrI12pF9WkBhxXTg4oGTM-FoSE_WbQCWZdWo'
 };
 
 /*
