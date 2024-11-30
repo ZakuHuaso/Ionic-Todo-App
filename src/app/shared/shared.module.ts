@@ -5,17 +5,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    CustomInputComponent
+    CustomInputComponent,
+    NavbarComponent
   ],
   exports: [
     HeaderComponent,
-    CustomInputComponent
+    CustomInputComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
