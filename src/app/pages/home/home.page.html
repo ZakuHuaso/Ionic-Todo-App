@@ -1,31 +1,41 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title> Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
-  
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="loadNotes()">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<ion-content class="ion-padding">
+  <div> Bienvenido Usuario,
+    Hoy es {{ date }}</div>
 
-  <ion-list>
-    <ion-item *ngFor="let note of notes">
-      <ion-label>
-        <h2>{{ note.task_name }}</h2>
-        <p>{{ note.task_desc }}</p>
-      </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="deleteNote(note.id)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>¿Que haremos hoy?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let note of notes">
+          <ion-label>
+            <h2>{{ note.task_name }}</h2>
+            <p>{{ note.task_desc }}</p>
+            <p>{{ note.task_date }}</p>
+          </ion-label>
+          <ion-checkbox slot="end" [checked]="note.task_status === 2"
+            (ionChange)="modifyTaskStatus(note)"></ion-checkbox>
+          <ion-buttons slot="end">
+            <ion-button (click)="editTask(note)">
+              <ion-icon name="create-outline" aria-label="Edit note"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-item *ngIf="notes.length === 0">
+          <ion-label>¡Has completado todo! Hora de tomarse un descanso.</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  <ion-button (click)="toNewTaskPage()"> Agregar Nota </ion-button>
-  <ion-button > Editar Nota </ion-button>
+  <div id="limo"><img src="assets/slime (1).gif" alt="Limo-Saltarín"></div>
+  <div class="green-background"></div>
 
-  <ion-loading [isOpen]="isLoading" message="Loading notes..."></ion-loading>
 </ion-content>

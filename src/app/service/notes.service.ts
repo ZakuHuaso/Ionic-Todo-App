@@ -7,6 +7,8 @@ export interface Note {
     id: string;
     task_name: string;
     task_desc: string | null;
+    task_status: number;
+    task_date: Date;
     user_id: string;
   }
 
@@ -16,7 +18,7 @@ export interface Note {
 })
 export class NotesServices {
 
-  private basePath = 'notes';
+  private basePath = 'task';
 
   constructor(
     private authService: AuthService,
@@ -24,7 +26,7 @@ export class NotesServices {
   ){}
   
   
-  // === Leer todas las notas ===
+  // === Leer todas las tareas ===
   async getAllNotes(){
     const { data: session, error: sessionError } = await this.authService.session();
     
@@ -42,9 +44,9 @@ export class NotesServices {
 
     console.log('Usuario:',userId);
     const { data, error } = await this.supabase.supabaseClient
-      .from(this.basePath) // Cambia 'items' por la tabla que necesitas
+      .from(this.basePath)
       .select('*')
-      .eq('user_id', userId) // Suponiendo que la tabla 'items' tiene un campo 'user_id'
+      .eq('user_id', userId)
       .returns<Note[]>();
 
     if (error) {
@@ -55,7 +57,7 @@ export class NotesServices {
     return data || [];
   }
 
-  // === Crear nueva nota === 
+  // === Crear nueva tarea === 
 
   async addNote(task_name: string, task_desc: string | null) {
     try {
@@ -73,16 +75,16 @@ export class NotesServices {
       const userId = session.session.user.id;
       console.log('Usuario:', userId);
   
-      // Crear el objeto de la nueva nota
+      // Crear el objeto de la nueva tarea
       const newNote = {
         task_name,
         task_desc,
         user_id: userId,
       };
   
-      // Insertar la nueva nota en la tabla 'notes'
+      // Insertar nueva nota en tabla 'task'
       const { data, error } = await this.supabase.supabaseClient
-        .from('notes')
+        .from(this.basePath)
         .insert([newNote]);
   
       if (error) {
@@ -90,7 +92,7 @@ export class NotesServices {
       }
   
       console.log('Nota agregada exitosamente:', data);
-      return data; // Devuelve la nota agregada, si necesitas hacer algo con ella.
+      return data;
   
     } catch (error) {
       console.error("Ocurrió un error:", error.message);
@@ -98,7 +100,7 @@ export class NotesServices {
     }
   }
   
-  // === Eliminar nota ===
+  // === Eliminar tarea ===
 
   async deleteNote(noteId: string): Promise<boolean> {
     try {
@@ -115,9 +117,9 @@ export class NotesServices {
       const userId = session.session.user.id;
       console.log('Usuario:', userId);
   
-      // Eliminar la nota solo si el user_id de la nota coincide con el user_id del usuario autenticado
+      // Elimina la nota si user_id de la nota coincide con el user_id del usuario autenticado
       const { data, error } = await this.supabase.supabaseClient
-        .from('notes')
+        .from(this.basePath)
         .delete()
         .eq('id', noteId) 
         .eq('user_id', userId); 
@@ -136,7 +138,7 @@ export class NotesServices {
   }
   
 
-  // === Actualizar una nota ===
+  // === Actualizar una tarea ===
   async updateNote(noteId: string, updatedFields: Partial<Note>): Promise<Note | null> {
     try {
       // Obtener la sesión del usuario autenticado
@@ -155,12 +157,12 @@ export class NotesServices {
   
       // Actualizar la nota solo si pertenece al usuario autenticado
       const { data, error } = await this.supabase.supabaseClient
-        .from('notes')
-        .update(updatedFields) // Actualizamos solo los campos especificados
-        .eq('id', noteId) // Aseguramos que el id de la nota coincide
-        .eq('user_id', userId) // Aseguramos que la nota pertenece al usuario autenticado
+        .from(this.basePath)
+        .update(updatedFields) 
+        .eq('id', noteId)
+        .eq('user_id', userId) 
         .select()
-        .single(); // Retornamos el objeto actualizado como un solo registro
+        .single(); 
   
       if (error) {
         throw new Error("Error al actualizar la nota: " + error.message);
