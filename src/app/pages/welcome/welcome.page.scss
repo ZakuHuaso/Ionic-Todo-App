@@ -1,0 +1,32 @@
+.content-container {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: flex-end; /* Asegura que los botones estén en la parte inferior */
+    width: 100%;
+    padding: 32px; /* Espacio a los lados */
+    gap: 16px; /* Espacio entre input-container y button-container */
+    height: 100%; /* Asegura que el contenedor ocupe todo el espacio disponible */
+  }
+  
+  .img{
+    max-width: auto;
+    max-height: 45%;
+  }
+
+  .texto{ 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18em;
+    padding-bottom: 20px;
+  }
+
+  h1{
+    padding-bottom: 20px;
+  }
+
+  ion-button{
+    padding:20px;
+  }
