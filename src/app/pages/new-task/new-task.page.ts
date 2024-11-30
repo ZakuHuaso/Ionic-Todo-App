@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { Note, NotesServices } from 'src/app/service/notes.service';
+import { IonDatetime } from '@ionic/angular';
 
 interface NoteForm {
   task_name: FormControl<string | null>;
@@ -15,7 +16,8 @@ interface NoteForm {
 })
 export class NewTaskPage implements OnInit {
   noteForm: FormGroup;
-  
+  dateExample = new Date().toISOString();
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -25,6 +27,9 @@ export class NewTaskPage implements OnInit {
 
   ngOnInit() {
   }
+
+  selectedDate: string = '';
+  selectedTime: string = '';
 
   form = this.fb.group<NoteForm>({
     task_name: this.fb.control(null, Validators.required),

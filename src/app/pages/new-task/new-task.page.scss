@@ -1,0 +1,39 @@
+h1 {
+    font-size: 24px;
+    color: #8c8cff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .no-label-button {
+    --color: #8c8cff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .date-button, .time-button {
+    --background: #f4f5f8;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  ion-icon {
+    color: #8c8cff;
+  }
+  
+  
+  ion-modal {
+    &.center {
+      --width: calc(100% - 2em);
+      align-items: center;
+      --height: auto;
+      .ion-page {
+        position: relative;
+        display: block;
+        contain: content;
+      }
+    }
+  }
+  
+  ion-popover {
+    &.width-80 {
+      --width: 80%;
+    }
+  }
