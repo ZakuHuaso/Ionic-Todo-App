@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Filtrar Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <!-- Botones para filtrar las tareas -->
+  <div class="button-container">
+    <ion-button 
+      class="custom-button" 
+      [ngClass]="{'selected': selectedButton === 'pendientes'}"
+      (click)="filterTasks(1)">
+      Pendientes
+    </ion-button>
+    <ion-button 
+      class="custom-button" 
+      [ngClass]="{'selected': selectedButton === 'completadas'}"
+      (click)="filterTasks(2)">
+      Completadas
+    </ion-button>
+  </div>
+
+  <div class="agregar-tarea" (click)="toNewTaskPage()">Agregar nueva tarea</div>
+
+  <!-- Lista de tareas filtradas -->
+  <ion-list>
+    <ion-item *ngFor="let task of filteredNotes">
+      <ion-label>
+        <h3>{{ task.task_name }}</h3>
+        <p>{{ task.task_desc }}</p>
+        <p *ngIf="task.task_status === 1">Pendiente</p>
+        <p *ngIf="task.task_status === 2">Completada</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

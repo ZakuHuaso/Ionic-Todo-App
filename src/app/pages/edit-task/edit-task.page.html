@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <app-header backButton="true"></app-header>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-form [formGroup]="form">
+    <ion-item>
+      <ion-input formControlName="task_name" label="Tarea" placeholder="Nombre de la tarea"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea formControlName="task_desc" rows="5" placeholder="Descripcion de tarea"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" fill="clear" class="no-label-button">
+      Sin Etiqueta
+    </ion-button>
+
+    <ion-list>
+      <ion-item button class="date-button" id="open-modal2">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-label>{{dateExample | date}}</ion-label>
+      </ion-item>
+      <ion-modal trigger="open-modal2" [cssClass]="'center'">
+        <ng-template>
+          <ion-datetime presentation="date" [(ngModel)]="dateExample" size="cover" [showDefaultButtons]="true"
+            cancel-text="Cancelar" done-text="Aceptar" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-list>
+
+    <ion-list>
+      <ion-item button class="time-button" id="open-popover2">
+        <ion-icon name="alarm-outline" slot="start"></ion-icon>
+        <ion-label>{{dateExample | date: 'HH:mm'}}</ion-label>
+      </ion-item>
+      <ion-popover trigger="open-popover2" cssClass="width-80">
+        <ng-template>
+          <ion-datetime presentation="time" [(ngModel)]="dateExample" size="cover" [showDefaultButtons]="true"
+            cancel-text="Cancelar" done-text="Aceptar" [ngModelOptions]="{standalone: true}"></ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </ion-list>
+  </ion-form>
+
+  <h1 class="modificar" (click)='updateTask()'>Modificar</h1>
+  <hr>
+  <h1 class="eliminar" (click)="deleteTask()"> ELIMINAR </h1>
+
+</ion-content>
