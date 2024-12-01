@@ -9,7 +9,7 @@ export class UserLoginUseCase {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   async execute(email: string, password: string): Promise<void> {
     try {
@@ -17,7 +17,6 @@ export class UserLoginUseCase {
 
       if (error) throw error;
 
-      // If login is successful, navigate to the home page
       this.router.navigate(['/home']);
     } catch (error) {
       if (error instanceof Error) {

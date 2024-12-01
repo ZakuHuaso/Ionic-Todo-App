@@ -31,9 +31,7 @@ export class LoginPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    // No need to check for existing session here, as Splash page will handle that
-  }
+  ngOnInit() { }
 
   async onLoginButton() {
     if (this.loginForm.invalid) {
@@ -45,7 +43,7 @@ export class LoginPage implements OnInit {
         this.loginForm.value.email ?? '',
         this.loginForm.value.password ?? ''
       );
-      // If login is successful, UserLoginUseCase will handle navigation
+
     } catch (error) {
       console.error('Login failed:', error);
       await this.showErrorAlert(error);
