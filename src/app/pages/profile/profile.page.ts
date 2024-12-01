@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { StorageService } from 'src/app/service/StorageService';
+import { UserLogoutUseCase } from 'src/app/use cases/user-logout.use-case';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userLogout: UserLogoutUseCase
   ) {}
 
   ngOnInit() {  
@@ -24,11 +26,8 @@ export class ProfilePage implements OnInit {
   }
 
   async performLogout() {
-    await this.authService.signOut();
-    this.storageService.clear();
-    this.router.navigate(['/login']);
-    }
+    this.userLogout.performLogout();
+  }
   
-
   
 }
