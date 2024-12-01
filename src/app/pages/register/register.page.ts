@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService} from 'src/app/service/auth.service';
+import { AlertController } from '@ionic/angular';
+import { UserRegisterUseCase } from 'src/app/use cases/user-register.use-case';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterPage {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService
+    private alertController: AlertController,
+    private userRegisterUseCase: UserRegisterUseCase
   ) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -31,17 +33,38 @@ export class RegisterPage {
   ngOnInit() { }
 
   async onRegisterButton() {
-    if (this.registerForm.invalid){
+    if (this.registerForm.invalid) {
       return;
     }
 
-    const authResponse = await this.authService.signUp(
-      this.registerForm.value.email ?? '',
-      this.registerForm.value.password ?? '',
-    );
-    
-    console.log(authResponse);
-  }
+    try {
+      const { user, profile } = await this.userRegisterUseCase.execute(
+        this.registerForm.value.email,
+        this.registerForm.value.password,
+        this.registerForm.value.username
+      );
+      
+      console.log('Usuario registrado:', user);
+      console.log('Perfil creado:', profile);
 
+      const alert = await this.alertController.create({
+        header: 'Registro Exitoso',
+        message: 'Tu cuenta ha sido creada exitosamente.',
+        buttons: ['OK']
+      });
+      await alert.present();
+
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Error de registro:', error);
+
+      const alert = await this.alertController.create({
+        header: 'Registro Fallido',
+        message: error.message || 'Ocurrió un error inesperado durante el registro.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
   
 }
