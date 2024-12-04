@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Note, NotesServices } from 'src/app/service/notes.service';
+import { TaskReadUseCase } from 'src/app/use cases/task-read';
+import { TaskUpdateUseCase } from 'src/app/use cases/task-update';
 
 
 interface NoteForm {
@@ -27,7 +29,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private noteServices: NotesServices
+    private taskRead: TaskReadUseCase,
+    private taskUpdate: TaskUpdateUseCase
   ) {
 
   }
@@ -60,12 +63,7 @@ export class HomePage implements OnInit {
 
   async loadNotes() {
     this.isLoading = true;
-    const allNotes = await this.noteServices.getAllNotes();
-    if (allNotes) {
-      this.notes = allNotes
-        .filter(note => note.task_status !== 2)
-        .slice(0, 5);
-    }
+    this.notes = await this.taskRead.getAllActiveTasks();
     this.isLoading = false;
   }
 
@@ -79,19 +77,18 @@ export class HomePage implements OnInit {
     this.router.navigate(['/edit-task'], { state: { note } });
   }
 
-  modifyTaskStatus(note: any) {
+  async modifyTaskStatus(note: any) {
     /* 
     Primero, cambiar el task_status de la tabla task para evitar que aparezca en la vista Home. 
     Luego llamar al metodo Update del CRUD en note.service.ts
     */
     const newStatus = 2; 
-
-    this.noteServices.updateNote(note.id, { task_status: newStatus }).then(() => {
+    const updatedNote = await this.taskUpdate.updateTaskStatus(note.id, newStatus);
+    if (updatedNote) {
       this.notes = this.notes.filter(n => n.id !== note.id);
-
-    }).catch(error => {
-      console.error('Error al completar la tarea:', error);
-    });
+    } else {
+      console.error('Error al completar la tarea');
+    }
   }
 
 }

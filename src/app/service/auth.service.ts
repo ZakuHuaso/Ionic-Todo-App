@@ -2,10 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { SupabaseService } from '../shared/supabase.service';
 import { StorageService } from './StorageService';
 
+
 export interface Profile {
-  username: string
-  email: string
-  avatar_url: string
+  id: string;
+  username: string;
+  email: string;
+  avatar_url?: string;
 }
 
 @Injectable({providedIn: 'root'})
@@ -26,6 +28,10 @@ export class AuthService {
       return { data: { session: storedSession }, error: null };
     }
     return this.supabase.auth.getSession();
+  }
+
+  getCurrentUser(){
+    return this.supabase.auth.getUserIdentities;
   }
 
   // == Registro ===
