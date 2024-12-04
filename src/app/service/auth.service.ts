@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseService } from '../shared/supabase.service';
 import { StorageService } from './StorageService';
+import { User } from '@supabase/supabase-js';
 
 
 export interface Profile {
@@ -30,8 +31,13 @@ export class AuthService {
     return this.supabase.auth.getSession();
   }
 
-  getCurrentUser(){
-    return this.supabase.auth.getUserIdentities;
+  async getCurrentUser() {
+    const { data, error } = await this.supabase.auth.getUser();
+    if (error) {
+      console.error('Error obteniendo el usuario:', error.message);
+      return { data: null, error };
+    }
+    return { data: data.user, error: null };  // Regresar el usuario directamente
   }
 
   // == Registro ===

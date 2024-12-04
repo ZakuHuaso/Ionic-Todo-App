@@ -3,30 +3,30 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-form [formGroup]="noteForm">
+  <form [formGroup]="noteForm">
     <ion-item>
       <ion-input formControlName="task_name" label="Tarea" placeholder="Nombre de la tarea"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-textarea formControlName="task_desc" rows="5" placeholder="Descripcion de tarea"></ion-textarea>
+      <ion-textarea formControlName="task_desc" rows="5" placeholder="Descripción de tarea"></ion-textarea>
     </ion-item>
 
     <ion-list>
       <ion-item button class="date-button" id="open-modal2">
         <ion-icon name="calendar-outline" slot="start"></ion-icon>
-        <ion-label>{{dateExample | date}}</ion-label>
+        <ion-label>{{ dateExample | date }}</ion-label>
       </ion-item>
       <ion-modal trigger="open-modal2" [cssClass]="'center'">
         <ng-template>
-          <ion-datetime presentation="date" [(ngModel)]="dateExample" size="cover"
+          <!-- Utiliza formControlName en lugar de ngModel -->
+          <ion-datetime formControlName="task_date" presentation="date" size="cover"
             cancel-text="Cancelar" done-text="Aceptar" [showDefaultButtons]="true"></ion-datetime>
         </ng-template>
       </ion-modal>
     </ion-list>
 
-  
-  <h1 (click)="addNote()">Guardar</h1>
-  </ion-form>
-
+    <!-- Botón para guardar -->
+    <h1 (click)="addNote()">Guardar</h1>
+  </form>
 </ion-content>

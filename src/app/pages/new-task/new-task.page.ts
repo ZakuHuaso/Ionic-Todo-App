@@ -38,7 +38,7 @@ export class NewTaskPage implements OnInit {
   selectedTime: string = '';
 
   initForm() {
-    this.noteForm = this.fb.group<NoteForm>({
+    this.noteForm = this.fb.group({
       task_name: this.fb.control(null, Validators.required),
       task_desc: this.fb.control(null),
       task_date: this.fb.control(null)
@@ -48,18 +48,23 @@ export class NewTaskPage implements OnInit {
   async addNote() {
     if (this.noteForm.valid) {
       const { task_name, task_desc, task_date } = this.noteForm.value;
-      const newNote = await this.taskCreate.createTask(task_name!, task_desc!, task_date!);
-      
+      console.log('Formulario enviado con datos:', this.noteForm.value); // Depuración
+  
+      // Asegurarse de que la fecha esté en el formato adecuado
+      const formattedDate = task_date ? new Date(task_date).toISOString() : new Date().toISOString();
+  
+      const newNote = await this.taskCreate.createTask(task_name!, task_desc!, formattedDate);
+  
       if (newNote) {
         console.log('Tarea creada exitosamente:', newNote);
         this.router.navigate(['/home']);
       } else {
         console.error('Error al crear la tarea');
-        // Here you might want to show an error message to the user
+        // Puedes agregar un mensaje para el usuario aquí
       }
     } else {
       console.log('Formulario inválido');
-      // Here you might want to show validation errors to the user
+      // Aquí puedes mostrar los errores de validación del formulario
     }
   }
 
