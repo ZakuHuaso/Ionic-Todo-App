@@ -61,9 +61,8 @@ export class NotesServices {
     task_name: string,
     task_desc: string | null,
     task_date: string
-  ) {
-    try { 
-      // Obtener la sesión del usuario autenticado
+  ): Promise<Note | null> {
+    try {
       const { data: session, error: sessionError } =
         await this.authService.session();
 
@@ -76,9 +75,7 @@ export class NotesServices {
       }
 
       const userId = session.session.user.id;
-      console.log('Usuario:', userId);
 
-      // Crear el objeto de la nueva tarea
       const newNote = {
         task_date,
         task_name,
@@ -86,22 +83,25 @@ export class NotesServices {
         user_id: userId,
       };
 
-      // Insertar nueva nota en tabla 'task'
-      const { data, error, status, statusText } =
-        await this.supabase.supabaseClient
-          .from(this.basePath)
-          .insert([newNote]);
-
-      console.log('Datos insertados:', data);
-      console.log('Error al insertar:', error);
-      console.log('Status:', status);
-      console.log('Status Text:', statusText);
+      const { data, error } = await this.supabase.supabaseClient
+        .from(this.basePath)
+        .insert([newNote])
+        .select(); // Solicitar datos insertados
+      console.log('=== Intentando insertar nueva tarea ===');
+      console.log('Datos a insertar:', newNote);
+      console.log('Usuario en sesión:', userId);
+      console.log('Tabla objetivo:', this.basePath);
+      console.log('Resultado de la inserción:');
+      console.log(' - Datos:', data);
+      console.log(' - Error:', error);
+      console.log(' - Status:', status);
+      
 
       if (error) {
         throw new Error('Error al agregar la nota: ' + error.message);
       }
 
-      return data;
+      return data && data.length > 0 ? (data[0] as Note) : null; // Retorna el primer elemento como Note
     } catch (error) {
       console.error('Ocurrió un error:', error.message);
       return null;

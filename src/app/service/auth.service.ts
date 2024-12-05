@@ -26,9 +26,15 @@ export class AuthService {
   async session() {
     const storedSession = await this.storageService.get('user_session');
     if (storedSession) {
-      return { data: { session: storedSession }, error: null };
+      return { data: { session: storedSession }, error: null }; // Asegura la misma estructura
     }
-    return this.supabase.auth.getSession();
+    
+    const { data, error } = await this.supabase.auth.getSession();
+    if (!error && data.session) {
+      // Almacena la sesión obtenida en StorageService
+      await this.storageService.set('user_session', data.session);
+    }
+    return { data, error };
   }
 
   async getCurrentUser() {

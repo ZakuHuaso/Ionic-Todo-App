@@ -54,7 +54,9 @@ export class NewTaskPage implements OnInit {
       const newNote = await this.taskCreate.createTask(task_name!, task_desc!, task_date!);
   
       if (newNote) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload(); // Recarga la página después de navegar
+        });
       } else {
         console.error('Error al crear la tarea');
         // Puedes agregar un mensaje para el usuario aquí
