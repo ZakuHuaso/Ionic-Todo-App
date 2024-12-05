@@ -50,13 +50,9 @@ export class NewTaskPage implements OnInit {
       const { task_name, task_desc, task_date } = this.noteForm.value;
       console.log('Formulario enviado con datos:', this.noteForm.value); // Depuración
   
-      // Asegurarse de que la fecha esté en el formato adecuado
-      const formattedDate = task_date ? new Date(task_date).toISOString() : new Date().toISOString();
-  
-      const newNote = await this.taskCreate.createTask(task_name!, task_desc!, formattedDate);
+      const newNote = await this.taskCreate.createTask(task_name!, task_desc!, task_date!);
   
       if (newNote) {
-        console.log('Tarea creada exitosamente:', newNote);
         this.router.navigate(['/home']);
       } else {
         console.error('Error al crear la tarea');

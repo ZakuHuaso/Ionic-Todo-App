@@ -21,7 +21,7 @@ export class NotesServices {
   constructor(
     private authService: AuthService,
     private supabase: SupabaseService
-  ) {}
+  ) { }
 
   // === Leer todas las tareas ===
   async getAllNotes() {
@@ -56,7 +56,6 @@ export class NotesServices {
   }
 
   // === Crear nueva tarea ===
-
   async addNote(
     task_name: string,
     task_desc: string | null,
@@ -85,23 +84,34 @@ export class NotesServices {
         task_desc,
         user_id: userId,
       };
+      
 
       // Insertar nueva nota en tabla 'task'
-      const { data, error, status, statusText } =
-        await this.supabase.supabaseClient
-          .from(this.basePath)
-          .insert([newNote]);
+      const { data, error, status, statusText } = await this.supabase.supabaseClient
+        .from(this.basePath)
+        .insert([newNote])
+        .select()  // Solicita los datos insertados
+        .single();  // Usar single() para obtener un solo objeto insertado
 
-      console.log('Datos insertados:', data);
-      console.log('Error al insertar:', error);
-      console.log('Status:', status);
-      console.log('Status Text:', statusText);
+      console.log('Datos insertados:', data);  // Deberías obtener los datos insertados aquí
+      console.log('Error al insertar:', error); // Verifica si el error es diferente ahora
+      
 
       if (error) {
         throw new Error('Error al agregar la nota: ' + error.message);
       }
 
-      return data;
+      // Asignamos el id generado por la base de datos a la nueva nota
+      const createdNote: Note = {
+        ...data,  // Asignar todos los campos devueltos por la base de datos
+        id: data.id,  // Asignar el id generado
+        task_name,
+        task_desc,
+        task_date: new Date(task_date),
+        user_id: userId,
+      };
+
+      return createdNote;
     } catch (error) {
       console.error('Ocurrió un error:', error.message);
       return null;
@@ -109,7 +119,6 @@ export class NotesServices {
   }
 
   // === Eliminar tarea ===
-
   async deleteNote(noteId: string): Promise<boolean> {
     try {
       const { data: session, error: sessionError } =
@@ -179,7 +188,6 @@ export class NotesServices {
         throw new Error('Error al actualizar la nota: ' + error.message);
       }
 
-      console.log('Nota actualizada exitosamente:', data);
       return data; // Devuelve la nota actualizada
     } catch (error) {
       console.error('Ocurrió un error:', error.message);
