@@ -32,6 +32,7 @@ export class NewTaskPage implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    
   }
 
   selectedDate: string = '';
