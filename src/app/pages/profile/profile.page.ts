@@ -31,22 +31,19 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter() {
     try {
-      // Obtiene la información del usuario actual
-      const { data: userData, error: userError } =
-        await this.authService.getCurrentUser();
-
+      const { data: userData, error: userError } = await this.authService.getCurrentUser();
+  
       if (userError || !userData) {
         console.warn('No se encontró información del usuario actual.');
         this.router.navigate(['/login']);
         return;
       }
-
-      // Asegúrate de usar "id" en lugar de "uid"
+  
       if (userData.id) {
         const profile = await this.ProfileService.getProfile(userData.id);
-
+  
         if (profile) {
-          this.profileImageUrl = await this.ImageUserUseCase.getProfileImage(userData.id)
+          this.profileImageUrl = profile.avatar_url || null; // Usa avatar_url
           await this.storageService.set('Username', profile.username);
           await this.storageService.set('Correo', profile.email);
           this.email = await this.storageService.get('Correo');
@@ -62,6 +59,7 @@ export class ProfilePage implements OnInit {
       console.error('Error general:', err.message);
     }
   }
+  
 
   async onImageSelected(event: any) {
     const file: File = event.target.files[0];
@@ -69,26 +67,42 @@ export class ProfilePage implements OnInit {
       alert('No se seleccionó ninguna imagen.');
       return;
     }
-
+  
     // Obtener el usuario actual
     const { data, error } = await this.authService.getCurrentUser();
     if (error || !data || !data.id) {
       alert('Error: Usuario no autenticado o ID no disponible.');
       return;
     }
-
-    const userId = data.id; // Aquí accedes al ID correctamente
-
+  
+    const userId = data.id;
+  
     // Subir la imagen usando el caso de uso
     const uploadedUrl = await this.ImageUserUseCase.execute(userId, file);
-
+  
     if (uploadedUrl) {
-      this.profileImageUrl = uploadedUrl; // Actualiza la URL de la imagen en el perfil
-      alert('¡Foto de perfil actualizada!');
+      try {
+        // Actualizar el perfil del usuario con la nueva URL
+        const updateProfileResult = await this.ProfileService.updateProfile({
+          id: userId,
+          avatar_url: uploadedUrl, // Usa avatar_url en lugar de profileImageUrl
+        });
+  
+        if (updateProfileResult) {
+          this.profileImageUrl = uploadedUrl; // Actualiza la variable local para mostrar la nueva imagen
+          alert('¡Foto de perfil actualizada!');
+        } else {
+          alert('Error al guardar la URL de la imagen en el perfil.');
+        }
+      } catch (error) {
+        console.error('Error al actualizar el perfil:', error.message);
+        alert('Error al actualizar el perfil.');
+      }
     } else {
       alert('Error al subir la foto de perfil.');
     }
   }
+  
 
   onFileInputClick() {
     this.fileInput.nativeElement.click();
@@ -97,6 +111,4 @@ export class ProfilePage implements OnInit {
   async performLogout() {
     this.userLogout.performLogout();
   }
-
-  
 }

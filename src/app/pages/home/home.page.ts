@@ -50,6 +50,10 @@ export class HomePage implements OnInit {
     this.loadNotes();
   }
 
+  refrescar(){
+    window.location.reload();
+  }
+
   getFormattedDate(): string {
     const today = new Date();
     return today.toLocaleDateString('es-ES', {

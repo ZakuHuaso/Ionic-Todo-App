@@ -29,7 +29,7 @@
           </ion-buttons>
         </ion-item>
         <ion-item *ngIf="notes.length === 0">
-          <ion-label>¡Has completado todo! Hora de tomarse un descanso.</ion-label>
+          <ion-label>¡Has completado todo! Hora de tomarse un descanso. <ion-button (click)="refrescar()">Refrescar</ion-button></ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
