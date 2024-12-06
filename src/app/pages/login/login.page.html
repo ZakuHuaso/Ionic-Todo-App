@@ -3,7 +3,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense"> </ion-header>
 
-  <div style="z-index: 1000; position: fixed">
+  <div class="logo-container">
     <img src="assets/GooList-.png" alt="GooList" />
   </div>
 
@@ -36,10 +36,6 @@
     </form>
 
     <div class="button-container">
-      
-      <hr/>
-      <ion-button expand="block" color="tertiary">Iniciar sesion con Google</ion-button>
-      <p style="text-align: center">o</p>
       <p class="texto">
         ¿No tiene cuenta?
         <span class="texto color-registro" (click)="onRegisterButtonPressed()">Crea una</span>

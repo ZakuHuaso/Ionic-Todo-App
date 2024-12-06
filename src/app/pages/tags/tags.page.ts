@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tags',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagsPage implements OnInit {
 
-  constructor() { }
+  tags: string[] = ['Casa', 'Estudio', 'Ocio'];
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  editTag(tag: string) {
+    this.router.navigate(['/edit-tag', { tag: tag }]);
+  }
 }

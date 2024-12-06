@@ -4,6 +4,21 @@ ion-content {
     align-items: center; /* Centra horizontalmente */
   }
   
+  .logo-container {
+    position: fixed;
+    top: 20px; /* Ajusta según el diseño */
+
+    text-align: center;
+  }
+  
+  .logo {
+    max-width: 200px; /* Ajusta el tamaño máximo */
+    width: 50%; /* Escala en relación al ancho de la pantalla */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain;
+  }
+  
+
   .content-container {
     display: flex;
     position: fixed;

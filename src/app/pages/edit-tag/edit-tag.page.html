@@ -1,13 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>edit-tag</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Editar etiqueta" color="secondary"  backButton="true"></app-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">edit-tag</ion-title>
+      <ion-title size="large">Editar Etiqueta</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Geolocalización</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" (click)="getAndSaveLocation()">
+        Guardar Ubicación Actual
+      </ion-button>
+
+      <ion-item *ngIf="locationData">
+        <ion-label>
+          <h2>Ubicación Guardada:</h2>
+          <p>Latitud: {{ locationData.latitude }}</p>
+          <p>Longitud: {{ locationData.longitude }}</p>
+          <p>Fecha: {{ locationData.timestamp | date:'medium' }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-button expand="block" color="danger" (click)="removeLocation()" *ngIf="locationData">
+        Eliminar Ubicación Guardada
+      </ion-button>
+      <ion-button expand="block" color="tertiary" (click)="openInGoogleMaps()" *ngIf="locationData">
+        Abrir en Google Maps
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+

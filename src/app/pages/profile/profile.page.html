@@ -1,41 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Perfil</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header class="ion-text-center" title="Perfil" color="light"></app-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
-  <hr>
+
   <div class="container">
-    <div style="flex-basis: 10%; text-align: center;">
+    <div style="text-align: center;">
       <ion-avatar>
         <img [src]="profileImageUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Foto de perfil" />
       </ion-avatar>
-      <ion-button fill="outline" size="small" color="primary" (click)="onFileInputClick()">Cambiar Foto</ion-button>
       <input type="file" hidden #fileInput (change)="onImageSelected($event)" accept="image/*" />
-      <div (click)="performLogout()">
-        <p style="color: red; font-size: 12px;">Cerrar Sesión</p>
-      </div>
-    </div>
-
-    <div style="flex-basis: 70%;">
-      <ion-item>Usuario: {{ nombreusuario }}</ion-item>
-      <ion-item>Email: {{ email }}</ion-item>
     </div>
   </div>
 
-  <hr>
-
-  <div>
-    <ion-item class="alarma">
-      <ion-range label="Tareas diarias" aria-label="Custom range" [min]="1" [max]="5" [value]="3" [pin]="true" [ticks]="true" [snaps]="true"></ion-range>
-    </ion-item>
-    <p class="info">El máximo de tareas diarias que se muestran en pantalla es 5</p>
+  <div class="userinfo-container">
+    <ion-item > Usuario: {{ nombreusuario }}</ion-item>
+    <ion-item> Email: {{ email }}</ion-item>
   </div>
 
-  <div class="container">
-    <p style="color: #9DB2CE;">Guardar cambios</p>
+  <div class="button-container">
+    <ion-button color="primary" (click)="onFileInputClick()">Cambiar Foto</ion-button>
+    <ion-button color="danger" (click)="performLogout()"> Cerrar Sesión </ion-button>
   </div>
 
-  <ion-button expand="block" color="danger">Eliminar Cuenta</ion-button>
+
 </ion-content>
