@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/service/GeoLocation';
 import { ToastController } from '@ionic/angular';
-
+import { StorageService } from 'src/app/service/StorageService';
 @Component({
   selector: 'app-edit-tag',
   templateUrl: './edit-tag.page.html',
@@ -9,25 +9,27 @@ import { ToastController } from '@ionic/angular';
 })
 export class EditTagPage implements OnInit {
   locationData: any = null;
-
+  Tag: string;
+  BotonMapa: any = null;
   constructor(
     private geolocationService: GeolocationService,
-    private toastController: ToastController
-  ) { }
+    private toastController: ToastController,
+    private StorageService: StorageService
+  ) {}
 
-  ngOnInit() {
-    this.loadSavedLocation();
+  async ngOnInit() {
+    this.Tag = await this.StorageService.get('TAG');
   }
 
-  async loadSavedLocation() {
-    this.locationData = await this.geolocationService.getSavedLocation();
-  }
-
-  async getAndSaveLocation() {
+  async getAndSaveLocationCasa() {
     try {
+      // Espera a que la promesa se resuelva y obtener los datos de la ubicación
       const locationData = await this.geolocationService.getLocation();
+  
       if (locationData) {
-        this.locationData = locationData;
+        console.log('Ubicación obtenida:', locationData); // Verifica si la ubicación se obtiene correctamente
+        this.locationData = locationData; // Asigna la ubicación obtenida
+        await this.geolocationService.saveLocationCasa(locationData);
         await this.presentToast('Ubicación guardada correctamente');
       } else {
         await this.presentToast('No se pudo obtener la ubicación', 'danger');
@@ -53,7 +55,7 @@ export class EditTagPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000,
-      color: color
+      color: color,
     });
     toast.present();
   }
@@ -65,6 +67,22 @@ export class EditTagPage implements OnInit {
       window.open(url, '_blank');
     } else {
       this.presentToast('No hay ubicación guardada para mostrar', 'warning');
+    }
+  }
+
+  getAndSave() {
+    console.log('Tag seleccionado:', this.Tag);
+    const TAGGET = this.Tag;
+
+    if (TAGGET === 'Casa') {
+      this.getAndSaveLocationCasa();
+      
+      
+      console.log('Ubicacion de Casa guardada');
+    } if (TAGGET === 'Estudio') {
+      console.log('Ubicacion de estudio guardada');
+    } if (TAGGET === 'Ocio') {
+      console.log('Ubicacion de Ocio guardada');
     }
   }
 }

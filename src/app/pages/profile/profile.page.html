@@ -7,7 +7,7 @@
       <ion-avatar>
         <img [src]="profileImageUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Foto de perfil" />
       </ion-avatar>
-      <input type="file" hidden #fileInput (change)="onImageSelected($event)" accept="image/*" />
+      <input type="file" hidden #fileInput (change)="onProfileImagePressed()" accept="image/*" />
     </div>
   </div>
 
@@ -17,7 +17,7 @@
   </div>
 
   <div class="button-container">
-    <ion-button color="primary" (click)="onFileInputClick()">Cambiar Foto</ion-button>
+    <ion-button color="primary" (click)="onProfileImagePressed()">Cambiar Foto</ion-button>
     <ion-button color="danger" (click)="performLogout()"> Cerrar Sesión </ion-button>
   </div>
 

@@ -28,7 +28,7 @@ export class ImageUserUseCase {
     } catch (error) {
       console.error('Unexpected error:', error);
       return null;
-    }
+    }                         
   }
 
   // Método para obtener la foto de perfil actual

@@ -48,23 +48,6 @@ export class ProfileService {
     return data;
   }
 
-  async uploadAvatar(userId: string, file: File): Promise<string> {
-    const fileExt = file.name.split('.').pop();
-    const filePath = `${userId}-${Math.random()}.${fileExt}`;
-
-    const { error } = await this.supabase.supabaseClient.storage
-      .from('avatars')
-      .upload(filePath, file);
-
-    if (error) throw error;
-
-    const { data } = this.supabase.supabaseClient.storage
-      .from('avatars')
-      .getPublicUrl(filePath);
-
-    await this.updateProfile({ id: userId, avatar_url: data.publicUrl });
-
-    return data.publicUrl;
-  }
+  
 }
 

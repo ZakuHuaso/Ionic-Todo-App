@@ -18,8 +18,7 @@ export class GeolocationService {
         timestamp: position.timestamp,
       };
       
-      // Retornar la ubicación obtenida
-      this.saveLocation(locationData);
+      
       return locationData;
     } catch (error) {
       console.error('Error al obtener la ubicación:', error);
@@ -28,15 +27,24 @@ export class GeolocationService {
   }
 
   // Función para guardar la ubicación
-  async saveLocation(locationData: any): Promise<void> {
+  async saveLocationCasa(locationData: any): Promise<void> {
     try {
-      await this.storageService.set('savedLocation', locationData);
+      await this.storageService.set('Ubicacion Casa', locationData);
       console.log('Ubicación guardada correctamente');
     } catch (error) {
       console.error('Error al guardar la ubicación:', error);
     }
   }
 
+  // Función para guardar la ubicación
+  async saveLocationUni(locationData: any): Promise<void> {
+    try {
+      await this.storageService.set('Ubicacion Casa', locationData);
+      console.log('Ubicación guardada correctamente');
+    } catch (error) {
+      console.error('Error al guardar la ubicación:', error);
+    }
+  }
   
   
 

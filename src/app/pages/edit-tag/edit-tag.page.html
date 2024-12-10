@@ -13,11 +13,11 @@
       <ion-card-title>Geolocalización</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-button expand="block" (click)="getAndSaveLocation()">
+      <ion-button expand="block" (click)="getAndSave()" >
         Guardar Ubicación Actual
       </ion-button>
 
-      <ion-item *ngIf="locationData">
+      <ion-item *ngIf="locationData && locationData.latitude && locationData.longitude">
         <ion-label>
           <h2>Ubicación Guardada:</h2>
           <p>Latitud: {{ locationData.latitude }}</p>
@@ -25,6 +25,7 @@
           <p>Fecha: {{ locationData.timestamp | date:'medium' }}</p>
         </ion-label>
       </ion-item>
+      
 
       <ion-button expand="block" color="danger" (click)="removeLocation()" *ngIf="locationData">
         Eliminar Ubicación Guardada

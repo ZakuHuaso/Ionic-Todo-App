@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { StorageService } from 'src/app/service/StorageService';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.page.html',
@@ -8,14 +8,21 @@ import { Router } from '@angular/router';
 })
 export class TagsPage implements OnInit {
 
-  tags: string[] = ['Casa', 'Estudio', 'Ocio'];
+  
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private StorageService : StorageService
+  ) { }
 
   ngOnInit() {
+    
   }
 
-  editTag(tag: string) {
-    this.router.navigate(['/edit-tag', { tag: tag }]);
+  
+
+
+  async seleccionarEtiqueta(tag: string){
+      await this.StorageService.set('TAG',tag);
+      this.router.navigate(['/edit-tag']);
   }
 }
