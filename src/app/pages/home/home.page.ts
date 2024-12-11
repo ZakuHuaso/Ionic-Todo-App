@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Note, NotesServices } from 'src/app/service/notes.service';
+import { Note } from 'src/app/service/notes.service';
 import { TaskReadUseCase } from 'src/app/use cases/task-read';
 import { TaskUpdateUseCase } from 'src/app/use cases/task-update';
 
@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
   date: string = '';
   progress: number | 0;
   total: number = 5;
-
+  
   noteForm: FormGroup;
   notes: Note[] = [];
   isLoading = false;
@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
   })
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.date = this.getFormattedDate();
     this.loadNotes();
   }

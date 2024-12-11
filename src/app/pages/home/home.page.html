@@ -1,9 +1,6 @@
 <app-header title="Home" color="light" class="ion-text-center"></app-header>
 
 <ion-content class="ion-padding">
-  <div> Bienvenido Usuario,
-    Hoy es {{ date }}</div>
-
   <ion-card>
     <ion-card-header>
       <ion-card-title>¿Que haremos hoy?</ion-card-title>
@@ -25,13 +22,19 @@
           </ion-buttons>
         </ion-item>
         <ion-item *ngIf="notes.length === 0">
-          <ion-label>¡Has completado todo! Hora de tomarse un descanso. <ion-button (click)="refrescar()">Refrescar</ion-button></ion-label>
+          <ion-label>¡Has completado todo! Hora de tomarse un descanso.</ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <div id="limo"><img src="assets/slime (1).gif" alt="Limo-Saltarín"></div>
+
+  <ion-button (click)="refrescar()">Refrescar</ion-button>
+  
+  <div id="limo">
+    <div class="date-container"> Bienvenido,
+      Hoy es {{ date }}</div>
+    <img src="assets/slime (1).gif" alt="Limo-Saltarín"></div>
   <div class="green-background"></div>
 
 </ion-content>

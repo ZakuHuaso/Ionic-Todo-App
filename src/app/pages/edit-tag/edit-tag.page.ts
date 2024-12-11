@@ -40,6 +40,25 @@ export class EditTagPage implements OnInit {
     }
   }
 
+  async getAndSaveLocationEstudio() {
+    try {
+      // Espera a que la promesa se resuelva y obtener los datos de la ubicación
+      const locationData = await this.geolocationService.getLocation();
+  
+      if (locationData) {
+        console.log('Ubicación obtenida:', locationData); // Verifica si la ubicación se obtiene correctamente
+        this.locationData = locationData; // Asigna la ubicación obtenida
+        await this.geolocationService.saveLocationCasa(locationData);
+        await this.presentToast('Ubicación guardada correctamente');
+      } else {
+        await this.presentToast('No se pudo obtener la ubicación', 'danger');
+      }
+    } catch (error) {
+      console.error('Error al obtener y guardar la ubicación:', error);
+      await this.presentToast('Error al guardar la ubicación', 'danger');
+    }
+  }
+
   async removeLocation() {
     try {
       await this.geolocationService.removeSavedLocation();
@@ -76,8 +95,6 @@ export class EditTagPage implements OnInit {
 
     if (TAGGET === 'Casa') {
       this.getAndSaveLocationCasa();
-      
-      
       console.log('Ubicacion de Casa guardada');
     } if (TAGGET === 'Estudio') {
       console.log('Ubicacion de estudio guardada');

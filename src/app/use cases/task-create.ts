@@ -7,13 +7,13 @@ import { NotesServices, Note } from '../service/notes.service';
 export class TaskCreateUseCase {
   constructor(private notesService: NotesServices) {}
 
-  async createTask(task_name: string, task_desc: string | null, task_date?: string): Promise<Note | null> {
+  async createTask(task_name: string, task_desc: string | null, task_date?: string, task_location?: string): Promise<Note | null> {
     try {
       // Verifica si se tiene una fecha, si no, utiliza la fecha actual.
       const date = task_date ? task_date : new Date().toISOString();
 
       // Ahora pasamos la fecha al servicio junto con el nombre y la descripción
-      const newNote = await this.notesService.addNote(task_name, task_desc, date);
+      const newNote = await this.notesService.addNote(task_name, task_desc, date, task_location);
 
       if (newNote) {
         console.log('Tarea creada exitosamente:', newNote);

@@ -9,6 +9,7 @@ export interface Note {
   task_desc: string | null;
   task_status: number;
   task_date: Date;
+  task_location: string | null;
   user_id: string;
 }
 
@@ -60,7 +61,8 @@ export class NotesServices {
   async addNote(
     task_name: string,
     task_desc: string | null,
-    task_date: string
+    task_date: string,
+    task_location: string
   ): Promise<Note | null> {
     try {
       const { data: session, error: sessionError } =
@@ -80,6 +82,7 @@ export class NotesServices {
         task_date,
         task_name,
         task_desc,
+        task_location,
         user_id: userId,
       };
 
@@ -94,7 +97,6 @@ export class NotesServices {
       console.log('Resultado de la inserción:');
       console.log(' - Datos:', data);
       console.log(' - Error:', error);
-      console.log(' - Status:', status);
       
 
       if (error) {

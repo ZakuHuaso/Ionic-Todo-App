@@ -36,8 +36,19 @@ export class GeolocationService {
     }
   }
 
-  // Función para guardar la ubicación
+  // Función para guardar la ubicación Estudio
   async saveLocationUni(locationData: any): Promise<void> {
+    try {
+      await this.storageService.set('Ubicacion Casa', locationData);
+      console.log('Ubicación guardada correctamente');
+    } catch (error) {
+      console.error('Error al guardar la ubicación:', error);
+    }
+  }
+
+
+  // Función para guardar la ubicación Ocio
+  async saveLocationOcio(locationData: any): Promise<void> {
     try {
       await this.storageService.set('Ubicacion Casa', locationData);
       console.log('Ubicación guardada correctamente');

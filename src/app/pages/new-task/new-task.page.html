@@ -24,6 +24,21 @@
       </ion-modal>
     </ion-list>
 
+    <!-- Botón para capturar ubicación -->
+    <ion-item>
+      <ion-label>Ubicación:</ion-label>
+      <ion-button expand="block" (click)="captureLocation()">
+        Capturar ubicación
+      </ion-button>
+    </ion-item>
+
+    <!-- Mostrar ubicación -->
+    <ion-item *ngIf="location">
+      <ion-label>
+        {{ location.latitude }}, {{ location.longitude }}
+      </ion-label>
+    </ion-item>
+
     <!-- Botón para guardar -->
     <h1 (click)="addNote()">Guardar</h1>
   </form>
